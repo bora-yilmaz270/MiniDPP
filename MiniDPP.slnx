@@ -1,1 +1,4 @@
-<Solution />
+<Solution>
+  <Project Path="MiniDPP.Web/MiniDPP.Web.csproj" />
+  <Project Path="tests/MiniDPP.Tests/MiniDPP.Tests.csproj" />
+</Solution>
