@@ -89,3 +89,26 @@ HTML ve JSON-LD, aynı `ProductPassport` DTO'sunu ve aynı `DppService.CanSeeCar
 5. Karar notları ve README (bu commit).
 
 **Teslim tarihi notu:** Başvuru e-postasında 5 Kasım 2026 23:59, PDF'de 10 Kasım 2026 23:59 yazıyor. Emin olunana kadar daha erken tarih esas alınmalı.
+
+
+## Bonus tamamlayıcı geliştirme: geçmiş sürümleri görüntüleme
+
+İlk PR zaten sürüm numarası, UTC güncelleme zamanı ve geçmiş JSON snapshot'ını `ProductVersions` tablosuna yazıyordu. Bu PR yalnızca geçmişin **okunabilir, salt okunur** sunumunu tamamlıyor; var olan tablo ve veri bozulmuyor.
+
+- `GET /dpp/{gtin}/versions`: Güncel sürüm ve eski sürümlerin numara/tarih listesi.
+- `GET /dpp/{gtin}/versions/{versionNumber}`: Eski sürümün model/elyaf/üretim parti bilgilerini JSON snapshot'tan oluşturur.
+- Güncel sürüm için ayrı snapshot yoktur; kayıt `ProductModels` ve `ProductBatches` üzerindedir.
+- Bir güncelleme yapıldığında değiştirilen eski sürümün arşivlenme anı UTC olarak tutulur. Bu, eski sürümün oluşturulma zamanı değil, **sonraki sürümle değiştirildiği zaman** olarak anlatılmalıdır.
+- Eski sürümün tüm batch kayıtları gösterilir; hiçbiri güncel verilerden tekrar hesaplanmaz.
+- Karbon bilgisi eski sürüm ekranında da varsayılan olarak üretilmez. Demo rolünü merkezî `DppService.CanSeeCarbon` kontrol eder.
+- Artık mevcut SQLite dosyasını silmek veya şemayı yeniden kurmak gerekmiyor.
+
+### Demo: 1 dakikalık bonus gösterimi
+
+1. Örnek CSV'yi içe aktar. Güncel pasaport V1 görünür, geçmiş sayfasında sadece V1 vardır.
+2. İlk ürünün karbon değerini `12.4` yerine `10.1` yapıp CSV'yi tekrar içe aktar.
+3. Pasaport V2 olur. Sürüm geçmişinde V2 güncel, V1 arşiv olur; V1'in güncelleme tarihi listelenir.
+4. V1'i aç, önceki bilgilerin saklandığını göster. `?rol=yetkili` ekleyince eski karbon değeri `12.4`; güncel pasaportta `10.1` görülür.
+5. Aynı CSV'yi tekrar içe aktar: V3 oluşmaz.
+
+Bu ekleme için ayrı Repository, CQRS veya Event Sourcing eklenmedi. Geçmiş okuma iki küçük EF Core sorgusu ve iki Razor ekranıyla çözüldü.

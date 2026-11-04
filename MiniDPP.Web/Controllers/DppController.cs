@@ -54,6 +54,30 @@ public sealed class DppController(DppService service) : Controller
         }), "application/ld+json; charset=utf-8");
     }
 
+    [HttpGet("/dpp/{gtin}/versions")]
+    public async Task<IActionResult> History(
+        string gtin, [FromQuery] string? rol, CancellationToken cancellationToken)
+    {
+        var history = await service.GetHistoryAsync(gtin, cancellationToken);
+        if (history is null) return NotFound();
+
+        ViewData["ShowCarbon"] = DppService.CanSeeCarbon(rol);
+        return View(history);
+    }
+
+    [HttpGet("/dpp/{gtin}/versions/{versionNumber:int}")]
+    public async Task<IActionResult> Version(
+        string gtin, int versionNumber, [FromQuery] string? rol,
+        CancellationToken cancellationToken)
+    {
+        var version = await service.GetPreviousVersionAsync(
+            gtin, versionNumber, cancellationToken);
+        if (version is null) return NotFound();
+
+        ViewData["ShowCarbon"] = DppService.CanSeeCarbon(rol);
+        return View(version);
+    }
+
     [HttpGet("/dpp/{gtin}/qr.png")]
     public async Task<IActionResult> Qr(
         string gtin, CancellationToken cancellationToken)
