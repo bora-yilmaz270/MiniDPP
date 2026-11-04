@@ -1,0 +1,76 @@
+:root{font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#17233d;background:#f7f9fc;font-synthesis:none}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+.container{width:min(1100px,calc(100% - 40px));margin-inline:auto}
+.site-header{background:#fff;border-bottom:1px solid #e5eaf2}
+.header-content{height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:inline-flex;align-items:center;gap:12px;font-size:19px;font-weight:800;letter-spacing:-.03em}
+.brand-symbol{background:#244fdf;color:#fff;display:inline-grid;place-items:center;width:40px;height:40px;border-radius:12px;font-size:12px;letter-spacing:.04em}
+.header-note{font-size:12px;color:#6f7c94}
+.main-content{padding:50px 0 78px;flex:1}
+.hero{max-width:745px;margin-bottom:33px}
+.eyebrow{color:#2954dc;font-size:11px;font-weight:800;letter-spacing:.16em;margin:0 0 13px}
+h1{font-size:clamp(30px,4vw,45px);letter-spacing:-.045em;line-height:1.12;margin:0 0 16px}
+.hero-copy{font-size:17px;color:#64748c;line-height:1.7;margin:0}
+h2{font-size:19px;letter-spacing:-.025em;margin:0 0 12px}
+h3{font-size:17px;margin:0 0 10px}
+p{line-height:1.65}
+.muted{color:#64748b}
+.panel{background:#fff;border:1px solid #e1e8f1;border-radius:18px;box-shadow:0 9px 28px rgba(22,44,88,.035)}
+.upload-panel{padding:29px;display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.upload-panel p{font-size:13px;margin:0}
+.upload-form{display:flex;align-items:stretch;flex-direction:column;gap:12px}
+.field-label{font-size:13px;font-weight:700}
+input[type=file]{background:#f7f9fd;border:1px dashed #a6b6cd;border-radius:9px;width:100%;padding:13px;color:#374667}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 19px;background:#2851d7;border:1px solid #2851d7;color:#fff;font-size:13px;font-weight:700;border-radius:9px;cursor:pointer;text-align:center}
+.button:hover{background:#173cbe}
+.button-outline{background:#fff;color:#2851d7}
+.button-outline:hover{background:#f0f4ff}
+.list-section{margin-top:48px}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
+.section-title h2{margin:0}
+.count{font-size:13px;color:#64748b}
+.empty-state{padding:33px;border:1px dashed #bdc9dc;border-radius:12px;color:#64748b;background:#fff}
+.product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.product-card{padding:24px;min-width:0}
+.product-card .muted{font-size:12px;margin:8px 0}
+.product-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:11px;background:#ebf0ff;color:#2954dc;font-size:13px;font-weight:800;margin-bottom:20px}
+.text-link{display:inline-block;color:#2851d7;font-size:13px;font-weight:700;margin-top:12px}
+.text-link:hover{text-decoration:underline}
+.mono,code{font-family:"Cascadia Code",Consolas,monospace;overflow-wrap:anywhere}
+.page-heading{margin:24px 0 28px}
+.back-link{display:inline-block;color:#62738f;font-size:13px;font-weight:600;margin-bottom:20px}
+.back-link:hover{color:#2851d7}
+.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.stat{padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat strong{font-size:30px}
+.stat span{font-size:12px;color:#64748b}
+.report-errors{padding:24px;margin-bottom:22px;overflow-x:auto}
+.data-table{border-collapse:collapse;width:100%;font-size:13px}
+.data-table th{text-align:left;color:#64748b;font-size:12px}
+.data-table th,.data-table td{border-bottom:1px solid #edf0f6;padding:13px 10px;vertical-align:top}
+.data-table th:first-child,.data-table td:first-child{width:120px}
+.alert{padding:18px;background:#fff1f0;color:#a12a28;border:1px solid #f5c8c5;border-radius:12px;margin-bottom:24px}
+.success-message{background:#e9fbf0;color:#17613a;border-radius:10px;padding:18px;margin-bottom:24px}
+.passport-header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin:20px 0 27px}
+.passport-header h1{margin-bottom:6px}
+.passport-header p.muted{margin:0}
+.status-chip{white-space:nowrap;background:#e8f7ef;color:#21623c;font-size:12px;font-weight:700;padding:9px 13px;border-radius:20px}
+.passport-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:20px}
+.passport-details,.qr-panel{padding:30px}
+.details-list{margin:24px 0}
+.details-list>div{display:flex;justify-content:space-between;gap:18px;padding:14px 0;border-bottom:1px solid #edf0f5}
+dt{color:#62738f;font-size:13px}
+dd{font-size:14px;font-weight:700;margin:0;text-align:right;overflow-wrap:anywhere}
+.carbon-line{background:#f1f7ff;padding-inline:12px!important;border-radius:7px}
+.privacy-note{background:#f4f7ff;padding:13px;border-radius:9px;font-size:12px;color:#43608c}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.qr-panel{text-align:center}
+.qr-panel .eyebrow{text-align:left}
+.qr-panel img{display:block;max-width:100%;height:auto;image-rendering:pixelated;margin:15px auto}
+.qr-panel p:not(.eyebrow){font-size:13px;color:#64748b}
+.small-note{font-size:12px;margin-top:23px}
+.site-footer{background:#17233d;color:#c6d0e1;padding:22px 0;font-size:12px}
+.footer-content{display:flex;justify-content:space-between;gap:10px}
+@media(max-width:760px){.header-note{display:none}.upload-panel{grid-template-columns:1fr}.product-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}.passport-layout{grid-template-columns:1fr}.footer-content{flex-direction:column}.passport-header{flex-direction:column}.main-content{padding-top:32px}}

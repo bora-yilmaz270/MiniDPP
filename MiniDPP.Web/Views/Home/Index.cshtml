@@ -1,0 +1,46 @@
+@model HomeIndexViewModel
+@{
+    ViewData["Title"] = "Ürünler";
+}
+<section class="hero">
+    <p class="eyebrow">MINI DİJİTAL ÜRÜN PASAPORTU</p>
+    <h1>Ürünün hikâyesi, tek bir bağlantıda.</h1>
+    <p class="hero-copy">CSV dosyasını yükleyin; geçerli ürünleri kaydedin ve her ürünün HTML pasaportunu, JSON-LD verisini ve QR kodunu görüntüleyin.</p>
+</section>
+<section class="panel upload-panel">
+    <div>
+        <h2>CSV içe aktar</h2>
+        <p class="muted">Örnek dosya: <code>samples/urunler_duzeltilmis_test.csv</code>. Hatalı satırlar diğer kayıtları durdurmaz.</p>
+    </div>
+    <form asp-controller="Home" asp-action="Import" method="post" enctype="multipart/form-data" class="upload-form">
+        @Html.AntiForgeryToken()
+        <label for="file" class="field-label">CSV dosyası</label>
+        <input id="file" name="file" type="file" accept=".csv,text/csv" required />
+        <button type="submit" class="button">Dosyayı içe aktar</button>
+    </form>
+</section>
+<section class="list-section">
+    <div class="section-title">
+        <h2>Ürün pasaportları</h2>
+        <span class="count">@Model.Products.Count ürün</span>
+    </div>
+    @if (Model.Products.Count == 0)
+    {
+        <div class="empty-state">Henüz ürün yok. Başlamak için CSV dosyasını yükleyin.</div>
+    }
+    else
+    {
+        <div class="product-grid">
+            @foreach (var product in Model.Products)
+            {
+                <article class="panel product-card">
+                    <div class="product-icon" aria-hidden="true">01</div>
+                    <h3>@product.ModelName</h3>
+                    <p class="muted mono">GTIN: @product.Gtin</p>
+                    <p class="muted">@product.BatchCount batch · Sürüm @product.VersionNumber</p>
+                    <a class="text-link" href="/dpp/@product.Gtin">Pasaportu görüntüle <span aria-hidden="true">→</span></a>
+                </article>
+            }
+        </div>
+    }
+</section>

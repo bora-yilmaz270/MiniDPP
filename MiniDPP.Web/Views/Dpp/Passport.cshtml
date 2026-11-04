@@ -1,0 +1,59 @@
+@model ProductPassport
+@{
+    ViewData["Title"] = Model.ModelName;
+    var showCarbon = ViewData["ShowCarbon"] is true;
+}
+<a class="back-link" asp-controller="Home" asp-action="Index">← Ürünlere dön</a>
+<div class="passport-header">
+    <div>
+        <p class="eyebrow">DİJİTAL ÜRÜN PASAPORTU</p>
+        <h1>@Model.ModelName</h1>
+        <p class="muted">Ürünün malzeme ve üretim bilgileri</p>
+    </div>
+    <span class="status-chip">Sürüm @Model.VersionNumber</span>
+</div>
+<div class="passport-layout">
+    <section class="panel passport-details">
+        <h2>Ürün bilgileri</h2>
+        <dl class="details-list">
+            <div><dt>GTIN</dt><dd class="mono">@Model.Gtin</dd></div>
+            <div><dt>Model adı</dt><dd>@Model.ModelName</dd></div>
+            <div><dt>Batch / Lot</dt><dd>@Model.BatchNo</dd></div>
+            <div><dt>Pamuk oranı</dt><dd>%@Model.CottonPercent.ToString("0.##", CultureInfo.InvariantCulture)</dd></div>
+            <div><dt>Elastan oranı</dt><dd>%@Model.ElastanePercent.ToString("0.##", CultureInfo.InvariantCulture)</dd></div>
+            <div><dt>Üretim yeri</dt><dd>@Model.ProductionPlace</dd></div>
+            @if (showCarbon)
+            {
+                <div class="carbon-line"><dt>Karbon ayak izi</dt><dd>@Model.CarbonKgCo2e.ToString("0.##", CultureInfo.InvariantCulture) kg CO₂e</dd></div>
+            }
+        </dl>
+        <p class="privacy-note">
+            @if (showCarbon)
+            {
+                <span>Yetkili demo görünümü etkin. Karbon değeri gösteriliyor.</span>
+            }
+            else
+            {
+                <span>Tüketici görünümü: karbon değeri gizlidir.</span>
+            }
+        </p>
+        <div class="actions">
+            @if (showCarbon)
+            {
+                <a class="button button-outline" href="/dpp/@Model.Gtin">Tüketici görünümüne geç</a>
+            }
+            else
+            {
+                <a class="button button-outline" href="/dpp/@Model.Gtin?rol=yetkili">Yetkili görünümü (demo)</a>
+            }
+            <a class="button" href="@Url.Action("JsonLd", "Dpp", new { gtin = Model.Gtin, rol = showCarbon ? "yetkili" : null })">JSON-LD görüntüle</a>
+        </div>
+    </section>
+    <aside class="panel qr-panel">
+        <p class="eyebrow">ÜRÜN QR KODU</p>
+        <img src="@Url.Action("Qr", "Dpp", new { gtin = Model.Gtin })" alt="@Model.ModelName için QR kod" width="240" height="240" />
+        <p>Bu QR kod, ürünün herkese açık HTML pasaportuna yönlendirir.</p>
+        <a class="text-link" href="@Url.Action("Qr", "Dpp", new { gtin = Model.Gtin })" download="dpp-@Model.Gtin.png">PNG indir <span aria-hidden="true">↓</span></a>
+    </aside>
+</div>
+<p class="muted small-note">Not: <code>?rol=yetkili</code> gerçek kullanıcı yetkilendirmesi değildir; yalnızca ödevin istediği görünürlük demosudur.</p>
