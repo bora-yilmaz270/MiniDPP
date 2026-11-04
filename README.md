@@ -74,7 +74,7 @@ Bir GTIN için birden fazla batch varsa, ödevin `/dpp/{gtin}` formatında batch
 dotnet test MiniDPP.slnx
 ```
 
-Testler; GTIN-14 kontrol basamağını, alan doğrulamalarını, **3 doğru / 2 hatalı** CSV sonucunu ve satır numaralarını, tekrarlı importu, model/batch ilişkisini, geçmiş sürümleri, HTML/JSON-LD rol ayrımını ve 404 sonuçlarını içerir. GitHub Actions her push ve PR'da build/test çalıştırır.
+Testler; GTIN-14 kontrol basamağını, alan doğrulamalarını, **3 doğru / 2 hatalı** CSV sonucunu ve satır numaralarını, tekrarlı importu, model/batch ilişkisini, geçmiş sürümleri, HTML/JSON-LD rol ayrımını 404 sonuçlarını ve gerçek HTTP endpoint akışını (HTML/JSON-LD/QR PNG) içerir. GitHub Actions her push ve PR'da build/test çalıştırır.
 
 ## Teknik mülakat notları
 
