@@ -36,4 +36,4 @@ app.MapControllerRoute(
 app.Run();
 
 // Allows WebApplicationFactory-based integration tests later.
-public partial class Program;
+public partial class Program { }
