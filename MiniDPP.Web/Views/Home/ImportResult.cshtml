@@ -1,0 +1,43 @@
+@model ImportReport
+@{
+    ViewData["Title"] = "İçe aktarma sonucu";
+}
+<a class="back-link" asp-controller="Home" asp-action="Index">← Ürünlere dön</a>
+<div class="page-heading">
+    <p class="eyebrow">CSV DOĞRULAMA RAPORU</p>
+    <h1>İçe aktarma sonucu</h1>
+    <p class="muted">Geçerli kayıtlar kaydedilir; hatalı satırlar numarası ve gerekçesiyle listelenir.</p>
+</div>
+@if (Model.GeneralError is not null)
+{
+    <div class="alert" role="alert">@Model.GeneralError</div>
+}
+else
+{
+    <div class="stats-grid">
+        <div class="stat panel"><strong>@Model.Created</strong><span>Yeni kayıt</span></div>
+        <div class="stat panel"><strong>@Model.Updated</strong><span>Güncellendi</span></div>
+        <div class="stat panel"><strong>@Model.Unchanged</strong><span>Değişmedi</span></div>
+        <div class="stat panel"><strong>@Model.Rejected</strong><span>Hatalı satır</span></div>
+    </div>
+    @if (Model.Errors.Count > 0)
+    {
+        <section class="panel report-errors">
+            <h2>Hatalı satırlar</h2>
+            <table class="data-table">
+                <thead><tr><th>CSV satırı</th><th>Hata nedeni</th></tr></thead>
+                <tbody>
+                @foreach (var error in Model.Errors)
+                {
+                    <tr><td>@error.Line</td><td>@error.Reason</td></tr>
+                }
+                </tbody>
+            </table>
+        </section>
+    }
+    else
+    {
+        <div class="success-message">Tüm satırlar başarıyla işlendi.</div>
+    }
+}
+<a class="button" asp-controller="Home" asp-action="Index">Ürünleri görüntüle</a>

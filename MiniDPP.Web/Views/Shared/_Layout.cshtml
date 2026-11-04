@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>@ViewData["Title"] · MiniDPP</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <a class="brand" asp-controller="Home" asp-action="Index">
+                <span class="brand-symbol">DPP</span><span>MiniDPP</span>
+            </a>
+            <span class="header-note">Dijital Ürün Pasaportu · Teknik Demo</span>
+        </div>
+    </header>
+    <main class="container main-content">
+        @RenderBody()
+    </main>
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <span>MiniDPP · ESG Next teknik değerlendirme çalışması</span>
+            <span>Yalnızca demo amaçlıdır.</span>
+        </div>
+    </footer>
+</body>
+</html>
