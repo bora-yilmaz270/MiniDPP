@@ -47,6 +47,7 @@
                 <a class="button button-outline" href="/dpp/@Model.Gtin?rol=yetkili">Yetkili görünümü (demo)</a>
             }
             <a class="button" href="@Url.Action("JsonLd", "Dpp", new { gtin = Model.Gtin, rol = showCarbon ? "yetkili" : null })">JSON-LD görüntüle</a>
+            <a class="button button-outline" href="@Url.Action("History", "Dpp", new { gtin = Model.Gtin, rol = showCarbon ? "yetkili" : null })">Sürüm geçmişi</a>
         </div>
     </section>
     <aside class="panel qr-panel">
