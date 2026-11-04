@@ -94,10 +94,6 @@ Sürüm 1 ilk import ile oluşur; ancak **arşiv kaydı sadece gerçekten deği�
 dotnet test MiniDPP.slnx
 ```
 
-Testler; GTIN-14 kontrol basamağını, alan doğrulamalarını, **3 doğru / 2 hatalı** CSV sonucunu ve satır numaralarını, tekrarlı importu, model/batch ilişkisini, geçmiş sürümleri, HTML/JSON-LD rol ayrımını 404 sonuçlarını ve gerçek HTTP endpoint akışını (HTML/JSON-LD/QR PNG) içerir. GitHub Actions her push ve PR'da build/test çalıştırır.
-
-## Teknik mülakat notları
-
-Mimari gerekçeleri, alternatifler, veri akışı, örnek demo akışı ve olası sorular: **[docs/DECISIONS.md](docs/DECISIONS.md)**.
+Testler; GTIN-14 kontrol basamağını, alan doğrulamalarını, **3 doğru / 2 hatalı** CSV sonucunu ve satır numaralarını, tekrarlı importu, model/batch ilişkisini, geçmiş sürümleri, HTML/JSON-LD rol ayrımını, 404 sonuçlarını ve gerçek HTTP endpoint akışını (HTML/JSON-LD/QR PNG) içerir. GitHub Actions her push ve PR'da build/test çalıştırır.
 
 Bu uygulama teknik değerlendirme demosudur; gerçek DPP servisi olarak kullanılmamalıdır.
