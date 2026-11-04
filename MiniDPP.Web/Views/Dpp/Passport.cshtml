@@ -47,13 +47,14 @@
                 <a class="button button-outline" href="/dpp/@Model.Gtin?rol=yetkili">Yetkili görünümü (demo)</a>
             }
             <a class="button" href="@Url.Action("JsonLd", "Dpp", new { gtin = Model.Gtin, rol = showCarbon ? "yetkili" : null })">JSON-LD görüntüle</a>
+            <a class="button button-outline" href="@Url.Action("History", "Dpp", new { gtin = Model.Gtin, rol = showCarbon ? "yetkili" : null })">Sürüm geçmişi</a>
         </div>
     </section>
     <aside class="panel qr-panel">
         <p class="eyebrow">ÜRÜN QR KODU</p>
         <img src="@Url.Action("Qr", "Dpp", new { gtin = Model.Gtin })" alt="@Model.ModelName için QR kod" width="240" height="240" />
         <p>Bu QR kod, ürünün herkese açık HTML pasaportuna yönlendirir.</p>
-        <a class="text-link" href="@Url.Action("Qr", "Dpp", new { gtin = Model.Gtin })" download="dpp-@Model.Gtin.png">PNG indir <span aria-hidden="true">↓</span></a>
+        <a class="text-link" href="@Url.Action("Qr", "Dpp", new { gtin = Model.Gtin })" download="dpp-@(Model.Gtin).png">PNG indir <span aria-hidden="true">↓</span></a>
     </aside>
 </div>
 <p class="muted small-note">Not: <code>?rol=yetkili</code> gerçek kullanıcı yetkilendirmesi değildir; yalnızca ödevin istediği görünürlük demosudur.</p>

@@ -74,3 +74,12 @@ dd{font-size:14px;font-weight:700;margin:0;text-align:right;overflow-wrap:anywhe
 .site-footer{background:#17233d;color:#c6d0e1;padding:22px 0;font-size:12px}
 .footer-content{display:flex;justify-content:space-between;gap:10px}
 @media(max-width:760px){.header-note{display:none}.upload-panel{grid-template-columns:1fr}.product-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}.passport-layout{grid-template-columns:1fr}.footer-content{flex-direction:column}.passport-header{flex-direction:column}.main-content{padding-top:32px}}
+
+/* Bonus: readable, responsive version history without adding UI dependencies. */
+.history-badge{display:inline-block;border-radius:20px;padding:9px 13px;font-size:12px;font-weight:700;background:#f0f1f5;color:#596478;white-space:nowrap}
+.version-history-table td{vertical-align:middle}
+.version-history-table .text-link{margin:0}
+.version-batches{display:grid;gap:16px;margin:12px 0 24px}
+.version-batch{border:1px solid #e3eaf4;border-radius:12px;padding:12px 18px}
+.version-batch .details-list{margin:0}
+@media(max-width:760px){.version-history-table{min-width:580px}}

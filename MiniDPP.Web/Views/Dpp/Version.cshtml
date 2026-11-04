@@ -1,0 +1,70 @@
+@model ProductVersionDetailViewModel
+@{
+    ViewData["Title"] = "Sürüm " + Model.VersionNumber;
+    var showCarbon = ViewData["ShowCarbon"] is true;
+    var role = showCarbon ? "yetkili" : null;
+}
+<a class="back-link" href="@Url.Action("History", "Dpp", new { gtin = Model.Product.Gtin, rol = role })">← Sürüm geçmişine dön</a>
+<div class="passport-header">
+    <div>
+        <p class="eyebrow">DİJİTAL ÜRÜN PASAPORTU · ARŞİV</p>
+        <h1>@Model.Product.Name</h1>
+        <p class="muted mono">GTIN: @Model.Product.Gtin</p>
+        <p class="muted">Güncellenme tarihi: <time datetime="@Model.ArchivedAtUtc.ToString("O")">@Model.ArchivedAtUtc.ToString("dd.MM.yyyy HH:mm") UTC</time></p>
+    </div>
+    <span class="history-badge">Eski sürüm V@(Model.VersionNumber)</span>
+</div>
+
+<div class="panel passport-details">
+    <div class="section-title">
+        <h2>Arşivlenen ürün bilgileri</h2>
+        <span class="muted">Salt okunur</span>
+    </div>
+    <dl class="details-list">
+        <div><dt>GTIN</dt><dd class="mono">@Model.Product.Gtin</dd></div>
+        <div><dt>Model adı</dt><dd>@Model.Product.Name</dd></div>
+        <div><dt>Pamuk oranı</dt><dd>%@Model.Product.CottonPercent.ToString("0.##", CultureInfo.InvariantCulture)</dd></div>
+        <div><dt>Elastan oranı</dt><dd>%@Model.Product.ElastanePercent.ToString("0.##", CultureInfo.InvariantCulture)</dd></div>
+    </dl>
+    <h2>Bu sürümdeki üretim partileri</h2>
+    <div class="version-batches">
+        @foreach (var batch in Model.Product.Batches.OrderBy(x => x.BatchNo))
+        {
+            <div class="version-batch">
+                <dl class="details-list">
+                    <div><dt>Batch / Lot</dt><dd>@batch.BatchNo</dd></div>
+                    <div><dt>Üretim yeri</dt><dd>@batch.ProductionPlace</dd></div>
+                    @if (showCarbon)
+                    {
+                        <div class="carbon-line">
+                            <dt>Karbon ayak izi</dt>
+                            <dd>@batch.CarbonKgCo2e.ToString("0.##", CultureInfo.InvariantCulture) kg CO₂e</dd>
+                        </div>
+                    }
+                </dl>
+            </div>
+        }
+    </div>
+    <p class="privacy-note">
+        @if (showCarbon)
+        {
+            <span>Yetkili demo görünümü: arşivlenmiş karbon değerleri gösteriliyor.</span>
+        }
+        else
+        {
+            <span>Tüketici görünümü: arşivlenmiş karbon değerleri gizlidir.</span>
+        }
+    </p>
+    <div class="actions">
+        <a class="button" href="@Url.Action("Passport", "Dpp", new { gtin = Model.Product.Gtin, rol = role })">Güncel pasaportu görüntüle</a>
+        @if (showCarbon)
+        {
+            <a class="button button-outline" href="@Url.Action("Version", "Dpp", new { gtin = Model.Product.Gtin, versionNumber = Model.VersionNumber })">Tüketici görünümüne geç</a>
+        }
+        else
+        {
+            <a class="button button-outline" href="@Url.Action("Version", "Dpp", new { gtin = Model.Product.Gtin, versionNumber = Model.VersionNumber, rol = "yetkili" })">Yetkili görünümü (demo)</a>
+        }
+    </div>
+</div>
+<p class="muted small-note">Eski sürümün bilgileri güncellenmez; güncel ürün bilgileri için asıl pasaporta dönün. <code>?rol=yetkili</code> güvenli bir yetkilendirme yöntemi değildir.</p>

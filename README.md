@@ -68,13 +68,33 @@ Tüketici (varsayılan) görünümünde `karbon_kg_co2e` **HTML ve JSON-LD çık
 
 Bir GTIN için birden fazla batch varsa, ödevin `/dpp/{gtin}` formatında batch anahtarı olmadığı için en son içe aktarılan/güncellenen batch gösterilir (demo tasarım varsayımı). Bir model veya batch değiştiğinde önceki tüm model/batch verileri snapshot olarak saklanır; yeni sürüm numarası artırılır. Aynı kayıt tekrar yüklenirse yeni sürüm oluşmaz.
 
+## Bonus sürüm geçmişini görüntüleme
+
+Bu bonus ilk teslimdeki `ProductVersions` kaydını kullanıcıya görünür hâle getirir. Ek tablo veya migration **gerektirmez**.
+
+1. Ana sayfadan örnek CSV'yi yükleyin.
+2. Aynı CSV'nin geçerli ürün satırlarından birindeki `karbon_kg_co2e` değerini değiştirip dosyayı tekrar yükleyin.
+3. İlgili ürün pasaportundaki **Sürüm geçmişi** bağlantısını açın.
+4. **Güncel** ve **Arşiv** sürümlerini, arşivlenme/güncelleme tarihlerini (UTC) inceleyin.
+5. Eski sürümün **Görüntüle** bağlantısından model, elyaf oranları ve o anda mevcut olan bütün batch'leri görün.
+
+| Görünüm | Örnek |
+|---|---|
+| Sürüm geçmişi | http://localhost:5090/dpp/08690000000012/versions |
+| Önceki sürüm (V1) | http://localhost:5090/dpp/08690000000012/versions/1 |
+| Önceki sürüm – yetkili demo | http://localhost:5090/dpp/08690000000012/versions/1?rol=yetkili |
+
+Sürüm 1 ilk import ile oluşur; ancak **arşiv kaydı sadece gerçekten değişiklik olduğunda** üretilir. Güncel sürüm her zaman ana DPP adresindedir. Arşiv sürümleri salt okunur ve eski batch bilgilerini korur. Aynı CSV yeniden yüklendiğinde yeni sürüm üretilmez.
+
+**Gizlilik:** Eski sürüm ekranlarında karbon bilgisi de varsayılan olarak gösterilmez. `?rol=yetkili` yalnızca demo görünürlüğünü açar; bu gerçek bir yetkilendirme sistemi değildir.
+
 ## Testler
 
 ```bash
 dotnet test MiniDPP.slnx
 ```
 
-Testler; GTIN-14 kontrol basamağını, alan doğrulamalarını, **3 doğru / 2 hatalı** CSV sonucunu ve satır numaralarını, tekrarlı importu, model/batch ilişkisini, geçmiş sürümleri, HTML/JSON-LD rol ayrımını ve 404 sonuçlarını içerir. GitHub Actions her push ve PR'da build/test çalıştırır.
+Testler; GTIN-14 kontrol basamağını, alan doğrulamalarını, **3 doğru / 2 hatalı** CSV sonucunu ve satır numaralarını, tekrarlı importu, model/batch ilişkisini, geçmiş sürümleri, HTML/JSON-LD rol ayrımını 404 sonuçlarını ve gerçek HTTP endpoint akışını (HTML/JSON-LD/QR PNG) içerir. GitHub Actions her push ve PR'da build/test çalıştırır.
 
 ## Teknik mülakat notları
 
